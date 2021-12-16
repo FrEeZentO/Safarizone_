@@ -1,22 +1,27 @@
 ## User Stories
 
-### (Priorisierung von oben nach unten)
+### (Prioritization from top to bottom)
 
-[geplant] Als User möchte ich, dass das Spiel stabil und bugfrei läuft, damit das Spiel ohne Probleme spielbar ist.
+As a User I want the game to run bugfree and stable, so that the game without any issues playable
 
-[geplant] Als User möchte ich, dass ich mit meinen Playermodel mit Pfeiltaste oder Leertaste über die Objekte springen kann, damit sich das Spiel angenehm steuern lässt.
+As a user I want my player model to be able to jump over objects with the arrow key or space bar so that the game can be controlled comfortably
 
-[offen] Als User möchte ich, dass es die Möglichkeit gibt das Spiel einfach neu zu starten, damit ich nicht extra das Programm wieder neu starten muss.
+As a user I would like that there is the possibility to simply restart the game so that I don't have to restart the program again
 
-[offen] Als User möchte ich, dass das Design simple aber gut gestaltet ist, damit ich Objekte schnell erkennen kann.
+As a user I want the design to be simple but well designed so that I can recognize objects quickly
 
-[offen] Als User möchte ich, dass sich die Schwierigkeit mit der Zeit verändert, damit es mich herausfordert und es nicht langweilig wird.
+As a user I want the difficulty to change over time so that it challenges me and doesn't get boring
 
-[offen] Als User möchte ich, dass mir ein Score während dem Spielen angezeigt wird, damit ich Highscores aufstellen kann, was den Spielspaß erhöht.
+As a user I would like to have a score system while playing so that I can set high scores, which increases the fun of the game
 
-[offen] Als User möchte ich, dass wenn ich mit einem Objekt kollidiere einen Game Over Screen erhalte, damit ich nochmal sehen kann, wie hoch mein Score war.
+As a user I would like that if I collide with an object I get a Game Over Screen so that I can see again how high my score was
 
-[offen] Als User möchte ich, dass es ein Leaderboard gibt, wo meine besten Scores gespeichert werden, damit ich bei meinen Freunden flexen kann, wie gut ich in dem Spiel bin.
+As a user I would like that there is a leaderboard where my best scores are saved so that I can show off my insane scores to my friends
+
+As a user I want an Easter Egg to exist, which appears when a certain input is made
+
+As a user I would like a start menu so that the clarity is better
+
 
 ---
 
