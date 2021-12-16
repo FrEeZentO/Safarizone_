@@ -1,5 +1,7 @@
 # Safarizone
 
+## 1. Sprint Deadline: 01.01.22 
+
 **Product Owner**:
 
 - Marcel (https://github.com/mcllll)
