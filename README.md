@@ -1,5 +1,5 @@
 # Safarizone
-# Description
+## Description
 This is a little endless-runner game in the style of the chrome "dino game".
 It is written in Java and is supposed to run in the default windows command prompt.
 
