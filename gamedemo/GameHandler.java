@@ -1,6 +1,5 @@
 package gamedemo;
 
-import java.io.IOException;
 import java.util.Random;
 
 //this class handles everything in regard to the game, from printing to animation
@@ -33,12 +32,8 @@ public class GameHandler {
 	public void printGrid() {
 		//clear terminal first (windows specific!)
 		//from https://stackoverflow.com/questions/25209808/clear-the-console-in-java
-		try {
-			Runtime.getRuntime().exec("cls");
-		} catch (IOException e) {
-			System.out.println("This game is supposed to be run on Windows using the default CMD!");
-			System.exit(1);
-		}
+		//TODO: bad practice, find better way to clear terminal
+		try {new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();} catch (Exception e) {}
 		
 		for (int i = 0; i < grid.length; i++ ) {
 			for (int j = 0; j < grid[i].length; j++) {

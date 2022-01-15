@@ -36,10 +36,10 @@ public class JumpHandler implements NativeKeyListener {
 		}
 	}
 
+	//checks how long player is supposed to remain airborne 
 	public void jumpCounter() {
 		if (jump && remainingSteps > 0) {
 			remainingSteps -= 1;
-			System.out.println(remainingSteps);
 		} else if (remainingSteps == 0) {
 			jump = false; //put player back on ground
 		}

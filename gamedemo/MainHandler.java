@@ -11,8 +11,8 @@ public class MainHandler implements NativeKeyListener{
 
 	public static void main(String[] args) {          
 		int length = 32; //length of the playing field (min 10)
-		int jumpDuration = 3; //how many "steps" the player is supposed to be airborne
-		int stepsPerSecond = 2; //how many fields move per second
+		int jumpDuration = 2; //how many "steps" the player is supposed to be airborne
+		int stepsPerSecond = 5; //how many fields move per second
 
 		//register hook to capture key presses and catch exception if one occurs
 		try {
@@ -43,7 +43,7 @@ public class MainHandler implements NativeKeyListener{
 
 			jh.jumpCounter(); //check state of jump and allow player to jump again
 		}
-		System.out.println("Game over");
+		System.out.println("Game over. Press Escape to exit.");
 
 	}
 }
