@@ -3,6 +3,8 @@
 This is a little endless-runner game in the style of the chrome "dino game".
 It is written in Java and is supposed to run in the default windows command prompt.
 
+Requires the JNativeHook library (https://github.com/kwhat/jnativehook).
+
 ## 1. Sprint Deadline: 01.01.22 
 ## 2. Sprint Deadline: 20.01.22
 
