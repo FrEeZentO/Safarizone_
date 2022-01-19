@@ -1,49 +1,47 @@
 package gamedemo;
 
-//partly derived from https://github.com/kwhat/jnativehook/blob/2.2/doc/Keyboard.md
-import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.NativeHookException;
-import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
+import com.github.kwhat.jnativehook.GlobalScreen; //required to start the global hook (see JumpHandler)
 
 //this class contains the main class, which in turn contains the core game logic.
 //it also takes care of the global keyboard hook integration.
-public class MainHandler implements NativeKeyListener{
+public class MainHandler{
+	
+	//the objects generated have to be static, as we want to access those from within the main method
+	private static GameMenuHandler gmh = new GameMenuHandler();
+	private static JumpHandler jh = new JumpHandler();
 
-	public static void main(String[] args) {          
-		int length = 32; //length of the playing field (min 10)
-		int jumpDuration = 2; //how many "steps" the player is supposed to be airborne
-		int stepsPerSecond = 5; //how many fields move per second
 
-		//register hook to capture key presses and catch exception if one occurs
-		try {
-			GlobalScreen.registerNativeHook();
-		}
-		catch (NativeHookException ex) {
-			System.err.println(ex.getMessage());
-			System.exit(1);
-		}
+	public static void main(String[] args) {
 
-		GameHandler gh = new GameHandler(length);
-		JumpHandler jh = new JumpHandler(jumpDuration);
-		GlobalScreen.addNativeKeyListener(jh); //used for capturing keyboard inputs
-
+		gmh.startScreen(); //show start screen
+		GameHandler gh = new GameHandler(gmh.getGridLength()); //generate playing field with given length
+		
+		GlobalScreen.addNativeKeyListener(jh); //start capturing global keyboard input
 		//Main Game Loop
 		while (!gh.getDidCollide()) {
 			gh.checkCollision(jh.isInAir()); //check if player collides with object with regards to jump state
-			if (gh.getDidCollide()) break;  //TODO Improve Logic (bad practice) / if player collides quit instantly by breaking loop
+
+			if (gh.getDidCollide()) { //TODO Improve Logic (bad practice) / if player collides quit instantly by breaking loop
+				jh.closeJumpHandler(); //close jump handler to stop reading global keyboard inputs
+				break;  
+			}
+
 			gh.animateJump(jh.isInAir());  //if player is in air and did not crash, draw player in air
 			gh.scrollAndPlaceObjects();   //shift all fields one to the left and place new object 
 			gh.printGrid(); //print the grid formatted correctly
 
 			try { //TODO: Improve timing method (bad practice) / using thread.sleep to halt the loop and adjust the game speed.
-				Thread.sleep(1000/stepsPerSecond); // (1000 ms / steps per second) = scrolling speed
+				Thread.sleep(1000/gmh.getSpeed()); // (1000 ms / steps per second) = scrolling speed
 			} catch (InterruptedException e) {
 				e.printStackTrace(); //print exception if one is caught...
 			}
 
 			jh.jumpCounter(); //check state of jump and allow player to jump again
+			gmh.increaseScore(); //increase score after every loop
 		}
-		System.out.println("Game over. Press Escape to exit.");
+		jh.closeJumpHandler();
+		gmh.gameOver();
+
 
 	}
 }

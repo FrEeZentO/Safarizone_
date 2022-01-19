@@ -9,10 +9,13 @@ public class GameHandler {
 	private final int Y_HEIGHT = 2; //y = 2 because of char jump
 	private final char PLAYER_CHAR = '>';
 	private final char OBJECT_CHAR = '#';
-	private final char EMPTY_FIELD = 0; //empty char arrays are init with 0 as a char by default, so we use 0 as a char to illustrate empty fields here too.
+	private final char EMPTY_FIELD = ' '; //spaces are used to represent empty fields
 
+	//one can experiment with these values
 	private final int MIN_DISTANCE = 3; //minimum distance between objects (preferred min 3)
-	private final int MAX_DISTANCE = 5; //maximum distance between objects (preferred max ~5)
+	private final int MAX_DISTANCE = 7; //maximum distance between objects (preferred max ~5) 
+	private final int SPAWN_CLEARANCE = 3; //minimum spawn clearance for fresh start
+	
 	private int distance = 0; //variable to hold distance to next object
 
 	private Random randNum = new Random(); //used for random number generation
@@ -24,11 +27,11 @@ public class GameHandler {
 	//construct new grid using set attributes and given length, then init. objects on map
 	public GameHandler(int x_length) {
 		grid = new char[Y_HEIGHT][x_length];
-		grid[1][0] = PLAYER_CHAR;
 		generateInitialObjects();
+		grid[1][0] = PLAYER_CHAR;
 	}
 
-	//print formatted grid
+	//print formatted grid  
 	public void printGrid() {
 		//clear terminal first (windows specific!)
 		//from https://stackoverflow.com/questions/25209808/clear-the-console-in-java
@@ -46,9 +49,16 @@ public class GameHandler {
 	//generate initial fields containing objects
 	private char[][] generateInitialObjects() {
 		int initialDistance;
+		
+		//fill grid with empty fields
+		for (int i = 0; i < grid.length; i++ ) {
+			for (int j = 0; j < grid[i].length; j++) {
+				grid[i][j] = EMPTY_FIELD;
+			}
+		}
 
 		//loop through fields and spawn objects in specific random distance to each other
-		for (int field = 0; field < grid[1].length; field++) {
+		for (int field = SPAWN_CLEARANCE; field < grid[1].length; field++) {
 			initialDistance = getRandomDistance();
 
 			if (initialDistance < grid[0].length-field) {
@@ -62,9 +72,9 @@ public class GameHandler {
 	}
 
 	//return random distance between objects by generating inclusive random number between two given ints
+	//derived from //from https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
 	private int getRandomDistance() {
-		//from https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
-		return randNum.nextInt(MAX_DISTANCE - MIN_DISTANCE + 1) + MIN_DISTANCE;
+		return randNum.nextInt(MAX_DISTANCE - MIN_DISTANCE + 1) + MIN_DISTANCE; //TODO Improve random num generation // the generator tends to output the same number over and over if it is requested multiple times in a short period
 	}
 
 	//move grid by one in direction of player and place objects
@@ -116,6 +126,7 @@ public class GameHandler {
 		}
 	}
 
+	//return didCollide
 	public boolean getDidCollide() {
 		return didCollide;
 	}
