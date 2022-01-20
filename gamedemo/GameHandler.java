@@ -1,11 +1,11 @@
-package gamedemo;
+ package gamedemo;
 
 import java.util.Random;
 
 //this class handles everything in regard to the game, from printing to animation
 
-public class GameHandler {
-	
+public class GameHandler 
+{
 	private final int Y_HEIGHT = 2; //y = 2 because of char jump
 	private final char PLAYER_CHAR = '>';
 	private final char OBJECT_CHAR = '#';
@@ -25,14 +25,16 @@ public class GameHandler {
 	private boolean didCollide = false; //"check for collision" flag
 	
 	//construct new grid using set attributes and given length, then init. objects on map
-	public GameHandler(int x_length) {
+	public GameHandler(int x_length) 
+	{
 		grid = new char[Y_HEIGHT][x_length];
 		generateInitialObjects();
 		grid[1][0] = PLAYER_CHAR;
 	}
 
 	//print formatted grid  
-	public void printGrid() {
+	public void printGrid() 
+	{
 		//clear terminal first (windows specific!)
 		//from https://stackoverflow.com/questions/25209808/clear-the-console-in-java
 		//TODO: bad practice, find better way to clear terminal
@@ -47,7 +49,8 @@ public class GameHandler {
 	}
 
 	//generate initial fields containing objects
-	private char[][] generateInitialObjects() {
+	private char[][] generateInitialObjects() 
+	{
 		int initialDistance;
 		
 		//fill grid with empty fields
@@ -73,12 +76,14 @@ public class GameHandler {
 
 	//return random distance between objects by generating inclusive random number between two given ints
 	//derived from //from https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
-	private int getRandomDistance() {
+	private int getRandomDistance() 
+	{
 		return randNum.nextInt(MAX_DISTANCE - MIN_DISTANCE + 1) + MIN_DISTANCE; //TODO Improve random num generation // the generator tends to output the same number over and over if it is requested multiple times in a short period
 	}
 
 	//move grid by one in direction of player and place objects
-	public void scrollAndPlaceObjects() {
+	public void scrollAndPlaceObjects() 
+	{
 		if (distance == 0) {
 			distance = getRandomDistance();
 		}
@@ -92,7 +97,8 @@ public class GameHandler {
 	}
 
 	//shift grid by one field to the left
-	private void shiftGridToLeft() {
+	private void shiftGridToLeft() 
+	{
 
 		//shift all fields to the left, except the first field (player position)
 		for (int field = 1; field < grid[1].length-1; field++) {
@@ -103,7 +109,8 @@ public class GameHandler {
 	}
 
 	//counts empty fields at the end of the grid
-	private int countEmptyFields() {
+	private int countEmptyFields() 
+	{
 		int counter = 0;
 
 		//start at the end of array and check for empty space
@@ -117,7 +124,8 @@ public class GameHandler {
 	}
 
 	//checks if the player collides with an object while regarding state of jump
-	public void checkCollision(boolean isInAir) {
+	public void checkCollision(boolean isInAir) 
+	{
 		//if object is in field next to player and player is not air, register collision
 		if (grid[1][1] == OBJECT_CHAR & isInAir == false) {
 			didCollide = true;
@@ -127,12 +135,14 @@ public class GameHandler {
 	}
 
 	//return didCollide
-	public boolean getDidCollide() {
+	public boolean getDidCollide() 
+	{
 		return didCollide;
 	}
 
 	//put player in air if player 
-	public void animateJump(boolean isInAir) {
+	public void animateJump(boolean isInAir) 
+	{
 		if (isInAir) {
 			grid[1][0] = EMPTY_FIELD;
 			grid[0][0] = PLAYER_CHAR;
