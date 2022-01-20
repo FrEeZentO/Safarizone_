@@ -11,14 +11,14 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
 //this class takes care of implementing the "nativeKeyPressed" method and JNativeHook Library
 //and takes care of the logic behind jumping
-public class JumpHandler implements NativeKeyListener {
-
+public class JumpHandler implements NativeKeyListener 
+{
 	private final int JUMPDURATION = 3; //how many steps the player remains in the air
 	private boolean jump = false; //state of the jump
 	private int remainingSteps = 0; //counter keeping track of remaining steps until player "lands"
 
-	public JumpHandler() {
-		
+	public JumpHandler() 
+	{
 		//register global hook to capture keystrokes 
 		try {
 			GlobalScreen.registerNativeHook();
@@ -30,7 +30,9 @@ public class JumpHandler implements NativeKeyListener {
 		}
 		
 	}
-	public void nativeKeyPressed(NativeKeyEvent e) {
+	
+	public void nativeKeyPressed(NativeKeyEvent e) 
+	{
 		//if space is pressed and player is allowed to jump, then jump
 		if (!jump && e.getKeyCode() == NativeKeyEvent.VC_SPACE) {
 			jump = true; //player jumped
@@ -46,7 +48,8 @@ public class JumpHandler implements NativeKeyListener {
 	}
 
 	//checks how long player is supposed to remain airborne 
-	public void jumpCounter() {
+	public void jumpCounter() 
+	{
 		if (jump && remainingSteps > 0) {
 			remainingSteps -= 1;
 		} else if (remainingSteps == 0) {
@@ -55,12 +58,14 @@ public class JumpHandler implements NativeKeyListener {
 	}
 	
 	//get the state of the player (airborne or not)
-	public boolean isInAir() { 
+	public boolean isInAir() 
+	{ 
 		return jump;
 	}
 	
 	//stop reading global keystrokes by unregistering the global hook
-	public void closeJumpHandler() {
+	public void closeJumpHandler() 
+	{
 		try {
 			GlobalScreen.unregisterNativeHook();
 		} catch (NativeHookException nativeHookException) { //catch exception if one occurs
