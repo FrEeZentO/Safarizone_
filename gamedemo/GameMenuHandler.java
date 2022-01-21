@@ -23,6 +23,7 @@ public class GameMenuHandler
 	private final String JUMP = "SPACE";
 	private final String QUIT = "ESCAPE";
 	private final String ENDMSG = "Goodbye!"; //exit message
+	private final String CREDIT = "This project was made by Team SAFARIZONE \nProduct Owner and Scrum Master: \nCaroline Schweizer \n\nDeveloper: \nPascal Reschke \nSemin Buljevic \nSamira Baecker";
 
 	private final int MIN_LENGTH = 16; //16 - 50 are suggested, as they provide the best experience. Too long numbers take to long to process and slow down the game.
 	private final int MAX_LENGTH = 50;
@@ -182,7 +183,7 @@ public class GameMenuHandler
 
 		System.out.println("Game over. Your score is " + score +".");
 		System.out.println("Do you want to save the score?");
-		System.out.println("Enter " + CONFIRM +" to do so and " + DENY + " to quit.");
+		System.out.println("Enter " + CONFIRM +" to save and quit or enter " + DENY + " to quit without saving.");
 
 		while (true) { //keep user in infinite loop until input is valid and loop breaks by exiting.
 			input = scanner.next();
@@ -198,6 +199,7 @@ public class GameMenuHandler
 				System.exit(0);
 			} else if (input.equalsIgnoreCase(DENY)) {
 				System.out.println(ENDMSG);
+				System.out.println(CREDIT);
 				System.exit(0);
 			} else {
 				System.out.println("Invalid input. Please try again.");
