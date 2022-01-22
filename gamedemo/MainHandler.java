@@ -8,14 +8,13 @@ public class MainHandler
 {	
 	//the objects generated have to be static, as we want to access those from within the main method
 	private static GameMenuHandler gmh = new GameMenuHandler();
-	private static JumpHandler jh = new JumpHandler();
-
 
 	public static void main(String[] args) 
 	{
 		boolean result = gmh.startMenu(); //show start screen
 		
 		if (result == true) {
+			JumpHandler jh = new JumpHandler(gmh.checkActivatedCheatCode("doubleJump", gmh.getActivatedCheatCodes())); //when doubleJump is set pass it to JumpHandler to activate it
 			GameHandler gh = new GameHandler(gmh.getGridLength()); //generate playing field with given length
 			
 			GlobalScreen.addNativeKeyListener(jh); //start capturing global keyboard input

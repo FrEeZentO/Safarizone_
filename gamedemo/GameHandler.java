@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class GameHandler 
 {
-	private final int Y_HEIGHT = 2; //y = 2 because of char jump
+	private final int Y_HEIGHT = 3; //y = 3 because of cheatCode doubleJump
 	private final char PLAYER_CHAR = '>';
 	private final char OBJECT_CHAR = '#';
 	private final char EMPTY_FIELD = ' '; //spaces are used to represent empty fields
@@ -61,11 +61,11 @@ public class GameHandler
 		}
 
 		//loop through fields and spawn objects in specific random distance to each other
-		for (int field = SPAWN_CLEARANCE; field < grid[1].length; field++) {
+		for (int field = SPAWN_CLEARANCE; field < grid[2].length; field++) {
 			initialDistance = getRandomDistance();
 
-			if (initialDistance < grid[0].length-field) {
-				grid[1][field+initialDistance] = OBJECT_CHAR; //grid[1] because lower half of array is used as playing fields
+			if (initialDistance < grid[1].length-field) {
+				grid[2][field+initialDistance] = OBJECT_CHAR; //grid[1] because lower half of array is used as playing fields
 				field += initialDistance;
 			}
 
@@ -89,7 +89,7 @@ public class GameHandler
 		}
 
 		if (countEmptyFields() == distance) {
-			grid[1][grid[1].length-1] = OBJECT_CHAR;
+			grid[2][grid[1].length-1] = OBJECT_CHAR;
 		} else {
 			shiftGridToLeft();
 		}
@@ -101,11 +101,11 @@ public class GameHandler
 	{
 
 		//shift all fields to the left, except the first field (player position)
-		for (int field = 1; field < grid[1].length-1; field++) {
-			grid[1][field] = grid[1][field+1];
+		for (int field = 1; field < grid[2].length-1; field++) {
+			grid[2][field] = grid[2][field+1];
 		}
 		//make sure last field is empty
-		grid[1][grid[1].length-1] = EMPTY_FIELD;
+		grid[2][grid[1].length-1] = EMPTY_FIELD;
 	}
 
 	//counts empty fields at the end of the grid
@@ -117,17 +117,17 @@ public class GameHandler
 		//if space is empty increase counter and check next field.
 		//we check the lower part at the end of the array using the length
 		//and continue to decrease it, thus going backwards
-		while(grid[1][grid[1].length-1-counter] == EMPTY_FIELD) {
+		while(grid[2][grid[1].length-1-counter] == EMPTY_FIELD) {
 			counter++;
 		}
 		return counter;
 	}
 
 	//checks if the player collides with an object while regarding state of jump
-	public void checkCollision(boolean isInAir) 
+	public void checkCollision(int isInAir) 
 	{
 		//if object is in field next to player and player is not air, register collision
-		if (grid[1][1] == OBJECT_CHAR & isInAir == false) {
+		if (grid[2][1] == OBJECT_CHAR & isInAir == 0) {
 			didCollide = true;
 		} else {
 			didCollide = false;
@@ -141,13 +141,20 @@ public class GameHandler
 	}
 
 	//put player in air if player 
-	public void animateJump(boolean isInAir) 
+	public void animateJump(int isInAir) 
 	{
-		if (isInAir) {
+		if (isInAir == 2) {
+			// set player to layer 0 and clear layer 1
 			grid[1][0] = EMPTY_FIELD;
 			grid[0][0] = PLAYER_CHAR;
-		} else {
+		} else if (isInAir == 1) {
+			// set player to layer 1 and clear layer 2
+			grid[2][0] = EMPTY_FIELD;
 			grid[1][0] = PLAYER_CHAR;
+		} else {
+			// reset player jump
+			grid[2][0] = PLAYER_CHAR;
+			grid[1][0] = EMPTY_FIELD;
 			grid[0][0] = EMPTY_FIELD;
 		}
 	}

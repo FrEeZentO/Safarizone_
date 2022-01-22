@@ -68,7 +68,7 @@ public class GameMenuHandler
 					System.out.println("|=================================================|");
 					System.out.println("|               Thanks for playing!               |");
 					System.out.println("|=================================================|");
-					break outerloop;
+					System.exit(0);
 				default:
 					break;
 			}
@@ -181,9 +181,15 @@ public class GameMenuHandler
 	{
 		scanner = new Scanner(System.in);
 
-		System.out.println("Game over. Your score is " + score +".");
-		System.out.println("Do you want to save the score?");
-		System.out.println("Enter " + CONFIRM +" to save and quit or enter " + DENY + " to quit without saving.");
+		System.out.println("|==============================================|");
+		System.out.println("|                  Game over                   |");
+		System.out.println("|==============================================|");
+		System.out.println("|              Your score is " + score +"." );
+		System.out.println("|        Do you want to save the score?        |");
+		System.out.println("|----------------------------------------------|");
+		System.out.println("|         Enter " + CONFIRM +" to save and quit or          |");
+		System.out.println("|       enter " + DENY + " to quit without saving.        |");
+		System.out.println("|==============================================|");
 
 		while (true) { //keep user in infinite loop until input is valid and loop breaks by exiting.
 			input = scanner.next();
@@ -196,6 +202,7 @@ public class GameMenuHandler
 				printToFile(output); //write output to file
 				System.out.println("Your score file is located in the current execution directory.");
 				System.out.println(ENDMSG);
+				System.out.println(CREDIT);
 				System.exit(0);
 			} else if (input.equalsIgnoreCase(DENY)) {
 				System.out.println(ENDMSG);
@@ -299,8 +306,6 @@ public class GameMenuHandler
 		for (int i = 0; i < CHEAT_CODES.length; i++) {
 			if (new String(code).equals(CHEAT_CODES[i]) && checkActivatedCheatCode(code, activatedCheatCodes) == false) { //check if entered code equals hardcoded cheatCode in array
 				ACTIVATED_CHEAT_CODES[activatedCheatCodes.length] = CHEAT_CODES[i]; //set cheatCode as activated
-				// set grid to [][]
-				// activate all functions to double jump
 			}
 		}
 	}
