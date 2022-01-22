@@ -145,6 +145,7 @@ public class GameHandler
 	{
 		if (isInAir == 2) {
 			// set player to layer 0 and clear layer 1
+			grid[2][0] = EMPTY_FIELD;
 			grid[1][0] = EMPTY_FIELD;
 			grid[0][0] = PLAYER_CHAR;
 		} else if (isInAir == 1) {
@@ -153,9 +154,9 @@ public class GameHandler
 			grid[1][0] = PLAYER_CHAR;
 		} else {
 			// reset player jump
-			grid[2][0] = PLAYER_CHAR;
-			grid[1][0] = EMPTY_FIELD;
 			grid[0][0] = EMPTY_FIELD;
+			grid[1][0] = EMPTY_FIELD;
+			grid[2][0] = PLAYER_CHAR;
 		}
 	}
 }
