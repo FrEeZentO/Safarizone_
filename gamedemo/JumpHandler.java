@@ -14,11 +14,17 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 public class JumpHandler implements NativeKeyListener 
 {
 	private final int JUMPDURATION = 3; //how many steps the player remains in the air
-	private boolean jump = false; //state of the jump
+	private int jump = 0; //state of the jump
 	private int remainingSteps = 0; //counter keeping track of remaining steps until player "lands"
+	
+	private boolean doubleJump = false;
 
-	public JumpHandler() 
+	public JumpHandler(boolean doubleJumpActivated) 
 	{
+		// activate doubleJump
+		if (doubleJumpActivated) {
+			this.doubleJump = true;
+		}
 		//register global hook to capture keystrokes 
 		try {
 			GlobalScreen.registerNativeHook();
@@ -34,11 +40,13 @@ public class JumpHandler implements NativeKeyListener
 	public void nativeKeyPressed(NativeKeyEvent e) 
 	{
 		//if space is pressed and player is allowed to jump, then jump
-		if (!jump && e.getKeyCode() == NativeKeyEvent.VC_SPACE) {
-			jump = true; //player jumped
+		if ((jump == 1 && doubleJump) && e.getKeyCode() == NativeKeyEvent.VC_SPACE) {
+			jump = 2; //player jumped to layer 2
+	   	} else if (jump == 0 && e.getKeyCode() == NativeKeyEvent.VC_SPACE) {
+			jump = 1; //player jumped to layer 1
 			remainingSteps = JUMPDURATION; //reset counter
 		}
-
+		
 		//press escape to quit game with exit code 0
 		if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
 			closeJumpHandler();
@@ -50,15 +58,19 @@ public class JumpHandler implements NativeKeyListener
 	//checks how long player is supposed to remain airborne 
 	public void jumpCounter() 
 	{
-		if (jump && remainingSteps > 0) {
+		if ((jump == 1 || jump == 2) && remainingSteps > 0) {
 			remainingSteps -= 1;
 		} else if (remainingSteps == 0) {
-			jump = false; //put player back on ground
+			jump = 0; //put player back on ground
 		}
 	}
 	
-	//get the state of the player (airborne or not)
-	public boolean isInAir() 
+	public int getRemainingSteps() {
+		return remainingSteps;
+	}
+	
+	//get the state of the player (airborne (2, 1) or not (0))
+	public int isInAir() 
 	{ 
 		return jump;
 	}
