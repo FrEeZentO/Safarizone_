@@ -1,5 +1,7 @@
 package gamedemo;
 
+import java.util.concurrent.*;
+
 import com.github.kwhat.jnativehook.GlobalScreen; //required to start the global hook (see JumpHandler)
 
 //this class contains the main class, which in turn contains the core game logic.
@@ -31,6 +33,17 @@ public class MainHandler
 				gh.scrollAndPlaceObjects();   //shift all fields one to the left and place new object 
 				gh.printGrid(); //print the grid formatted correctly
 
+				
+				final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+			    executorService.scheduleAtFixedRate
+			    (new Runnable() {
+			        public void run() 
+			        {
+			            gmh.getSpeed();
+			        }
+			    }, 0, 1, TimeUnit.SECONDS);
+				
+			    
 				try { //TODO: Improve timing method (bad practice) / using thread.sleep to halt the loop and adjust the game speed.
 					Thread.sleep(1000/gmh.getSpeed()); // (1000 ms / steps per second) = scrolling speed
 				} catch (InterruptedException e) {
