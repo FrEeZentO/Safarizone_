@@ -24,9 +24,6 @@ The project was successfully finished and we're excited to present our game.
 
 **Product Owner** & **Scrum-Master**: 
 
-### Retro
-
-
 - Caroline (https://github.com/Youmie34) 
 
 **Developer**: 
