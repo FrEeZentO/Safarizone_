@@ -18,6 +18,8 @@ The Dailys improved the efficiency in our team a lot and we successfully pushed 
 
 ## 3. Sprint Deadline: 27.01.22
 
+
+
 ### Retro
 The project was successfully finished and we're excited to present our game. 
 
